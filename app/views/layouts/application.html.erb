@@ -8,6 +8,38 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    
+
+    <% if flash[:notice] %>
+      <div class="notification is-primary global-notification">
+        <p class="notice"><%= notice %></p>
+      </div>
+    <% end %>
+    <% if flash[:alert] %>
+      <div class="notification is-danger global-notification">
+        <p class="alert"><%= alert %></p>
+      </div>
+    <% end %>
+
+    <% if !current_page?(:controller => 'sessions', :action => 'new') %>
+      <% @current_user = current_user %>
+      <% if @current_user %>
+        <div>
+          <p><%= "Signed in as: " + @current_user.name %></p>
+          <p><%= link_to "Sign Out", logout_path %></p>
+        </div>
+      <% else %>
+        <div>
+          <p><%= link_to "Sign In", login_path %></p>
+        </div>
+      <% end %>
+    <% end %>
+
+    <% if !current_page?(root_path) %>
+      <p><%= link_to "HOME", root_path %></p>
+    <% end %>
+
   </head>
 
   <body>
