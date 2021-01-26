@@ -11,6 +11,6 @@
 <% @current_user = current_user %>
 <% if @current_user %>
   <div>
-    <p><%= link_to "Visit Personal Page", @current_user %></p>
+    <p><%= link_to "Visit Personal Page", user_path(@current_user) %></p>
   </div>
 <% end %>

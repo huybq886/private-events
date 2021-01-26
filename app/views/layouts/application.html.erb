@@ -22,7 +22,7 @@
       </div>
     <% end %>
 
-    <% if !current_page?(:controller => 'sessions', :action => 'new') %>
+    <% if !current_page?(login_path) %>
       <% @current_user = current_user %>
       <% if @current_user %>
         <div>
