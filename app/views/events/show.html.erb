@@ -4,3 +4,26 @@
 <p>Event date: <%= @event.date %></p>
 <p>Event location: <%= @event.location %></p>
 <p>Event description: <%= @event.description %></p>
+
+<h3><%= "List of Attendees:" %></h3>
+<% if @event.attendees.empty? %>
+  <p>No one is attending this event.</p>
+<% else %>
+  <ul>
+    <% @event.attendees.each do |attendee| %>
+      <li>
+        <%= link_to attendee.name, user_path(attendee) %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if !@event.attendees.include?(current_user) %>
+  <div class="control">
+    <%= link_to "RSVP", rsvp_event_path %>
+  </div>
+<% else %>
+  <div class="control">
+    <%= link_to "Cancel RSVP", cancel_rsvp_event_path %>
+  </div>
+<% end %>

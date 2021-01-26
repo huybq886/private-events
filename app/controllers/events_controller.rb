@@ -1,4 +1,6 @@
 class EventsController < ApplicationController
+  before_action :require_login, except: [:index]
+
   def index
     @events = Event.all
   end
@@ -21,6 +23,22 @@ class EventsController < ApplicationController
       flash.alert = "Event #{@event.name} not successfully created!"
       render :new
     end
+  end
+
+  def rsvp
+    @event = Event.find(params[:id])
+    if @event.attendees.include?(current_user)
+      redirect_to @event, notice: "You are already on the attendee's list"
+    else
+      @event.attendees << current_user
+      redirect_to @event
+    end
+  end
+
+  def cancel_rsvp
+    @event = Event.find(params[:id])
+    @event.attendees.delete(current_user)
+    redirect_to @event, notice: "You are no longer attending this event"
   end
 
   private

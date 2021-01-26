@@ -9,5 +9,10 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index, :new, :show, :create]
   resources :sessions, only: [:new, :create, :destroy]
-  resources :events, only: [:index, :new, :show, :create]
+  resources :events, only: [:index, :new, :show, :create] do
+    member do
+      get 'rsvp'
+      get 'cancel_rsvp'
+    end
+  end
 end
